@@ -1,5 +1,24 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  if currentUser 
+    .messages
+      p Messages will be displayed here 
+  else 
+    .dialog.border.border-3.rounded.border-dark.p-5.d-flex.flex-column.align-items-center.bg-primary.text-white
+      h2 Welcome to Nogi Club
+      h5.mb-4 Sign In
+      form.form-group.d-flex.flex-column.m-auto(action="/login" method="post")
+        label(for="username") Username
+        input.form-control(type="text" name="username" required)
+        br
+        label(for="password") Password
+        input.form-control(type="password" name="password" required)
+        br
+        button.btn.btn-dark(type="submit") Sign In
+      hr
+      p Don't have an account? 
+        a(href="/signup") Sign up here.
+    
+
+

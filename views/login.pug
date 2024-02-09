@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .dialog.border.border-3.rounded.border-dark.p-5.d-flex.flex-column.align-items-center.bg-primary.text-white
+    h2 Welcome to Nogi Club
+    h5.mb-4 Sign In
+    form.form-group.d-flex.flex-column.m-auto(action="/login" method="post")
+      label(for="username") Username
+      input.form-control(type="text" name="username" required)
+      br
+      label(for="password") Password
+      input.form-control(type="password" name="password" required)
+      br
+      button.btn.btn-dark(type="submit") Sign In
+      if errors 
+        each error in errors 
+          p=error.msg

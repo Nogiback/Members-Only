@@ -4,6 +4,10 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const session = require("express-session");
+const LocalStrategy = require("passport-local").Strategy;
+const passport = require("passport");
+const bcrypt = require("bcryptjs");
 const compression = require("compression");
 const helmet = require("helmet");
 

@@ -14,4 +14,4 @@ block content
       button.btn.btn-dark(type="submit") Sign In
       if errors 
         each error in errors 
-          p=error.msg
+          .alert.alert-danger(role="alert")=error.msg

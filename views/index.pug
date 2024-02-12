@@ -3,12 +3,14 @@ extends layout
 block content
   if currentUser
     if messages 
-      .messages
+      .messages.list-group.w-100.gap-2
         each message in messages
-          .message.pb-5 
-            span #{message.user.username} 
-            span #{message.formattedTimestamp} 
-            p.mt-2 #{message.message}
+          .message.list-group-item.list-group-item-action.flex-column.align-items-start.border.border-primary.rounded-3.p-3
+            .d-flex.w-100.justify-content-between
+              small.mb-1 #{message.user.username}
+              small #{message.formattedTimestamp} 
+            hr.mt-1
+            p.mb-1 #{message.message}
     else 
       h2 There are no messages
   else 

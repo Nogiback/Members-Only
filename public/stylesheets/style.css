@@ -10,3 +10,7 @@ body {
 a {
   color: #00b7ff;
 }
+
+label {
+  margin-bottom: 5px;
+}

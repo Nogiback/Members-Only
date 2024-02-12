@@ -1,9 +1,16 @@
 extends layout
 
 block content
-  if currentUser 
-    .messages
-      p Messages will be displayed here 
+  if currentUser
+    if messages 
+      .messages
+        each message in messages
+          .message.pb-5 
+            span #{message.user.username} 
+            span #{message.formattedTimestamp} 
+            p.mt-2 #{message.message}
+    else 
+      h2 There are no messages
   else 
     .dialog.border.border-3.rounded.border-dark.p-5.d-flex.flex-column.align-items-center.bg-primary.text-white
       h2 Welcome to Nogi Club

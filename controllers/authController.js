@@ -8,9 +8,39 @@ exports.login_get = function (req, res) {
   res.render("login", { user: req.user, title: "Nogi Club | Login" });
 };
 
-exports.login_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT YET IMPLEMENTED: Login POST");
-});
+exports.login_post = [
+  body("username", "Username must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("password", "Password must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.render("login", { user: req.user, errors: errors.array() });
+      return;
+    }
+    passport.authenticate("local", (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        res.render("login", { user: req.user, errorMessage: info.message });
+        return;
+      }
+      req.login(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect("/");
+      });
+    })(req, res, next);
+  }),
+];
 
 exports.signup_get = function (req, res) {
   res.render("signup", { user: req.user, title: "Nogi Club | Sign Up" });
@@ -69,6 +99,11 @@ exports.signup_post = [
       await user.save();
       res.redirect("/");
     });
+  }),
+
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/",
   }),
 ];
 

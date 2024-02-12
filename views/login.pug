@@ -12,6 +12,9 @@ block content
       input.form-control(type="password" name="password" required)
       br
       button.btn.btn-dark(type="submit") Sign In
+      hr
       if errors 
         each error in errors 
           .alert.alert-danger(role="alert")=error.msg
+      if errorMessage 
+        .alert.alert-danger(role="alert")=errorMessage

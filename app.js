@@ -11,6 +11,7 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const compression = require("compression");
 const helmet = require("helmet");
+const User = require("./models/User");
 
 const indexRouter = require("./routes/index");
 

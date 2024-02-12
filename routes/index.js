@@ -13,13 +13,11 @@ const User = require("../models/User");
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
-    const messages = (
-      await Message.find()
-        .sort({ timestamp: -1 })
-        .limit(50)
-        .populate("user")
-        .exec()
-    ).reverse();
+    const messages = await Message.find()
+      .sort({ timestamp: -1 })
+      .limit(50)
+      .populate("user")
+      .exec();
     const user = await User.findOne(req.user).populate("roles").exec();
     res.render("index", {
       title: "Nogi Club",

@@ -4,13 +4,33 @@ body {
   padding: 50px;
   font: 14px "Roboto", sans-serif;
   height: calc(100vh - 50px);
-  background-color: lightgray;
+  background: url("../images/stacked-waves-haikei.svg");
 }
 
 a {
   color: #00b7ff;
 }
 
+.navbar {
+  z-index: 1;
+}
+
 label {
   margin-bottom: 5px;
+}
+
+.messages {
+  height: 670px;
+  bottom: 100px;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.messages::-webkit-scrollbar {
+  display: none;
+}
+
+.message-input {
+  bottom: 40px;
 }

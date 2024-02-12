@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  .message-input.d-flex.flex-column.w-100.position-absolute
+    form.form-group.d-flex.gap-2(action="/newMessage" method="post")
+        input.form-control.form-control-lg(type="text" name="message" placeholder="Add new message..." required)
+        button.btn.btn-dark(type="submit") Send
+  if errors
+  hr
+  each error in errors 
+    .alert.alert-danger(role="alert")=error.msg

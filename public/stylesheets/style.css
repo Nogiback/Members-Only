@@ -20,7 +20,7 @@ label {
 }
 
 .messages {
-  height: 670px;
+  top: 20px;
   bottom: 100px;
   overflow: auto;
   -ms-overflow-style: none;

@@ -4,7 +4,12 @@ const User = require("../models/User");
 const Message = require("../models/Message");
 
 exports.profile_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT YET IMPLEMENTED: Profile GET");
+  const user = await User.findOne(req.user).exec();
+
+  res.render("profile", {
+    title: "Nogi Club | Profile",
+    user: user,
+  });
 });
 
 exports.profileUpdate_get = asyncHandler(async (req, res, next) => {

@@ -47,6 +47,18 @@ exports.signup_get = function (req, res) {
 };
 
 exports.signup_post = [
+  asyncHandler(async (req, res, next) => {
+    const duplicate = await User.findOne({ username: req.body.username });
+    if (duplicate !== null) {
+      res.render("signup", {
+        user: req.user,
+        errors: [{ msg: "Username already exists." }],
+      });
+      return;
+    }
+    next();
+  }),
+
   body("firstname", "First Name cannot be empty.")
     .trim()
     .isLength({ min: 1 })
@@ -72,17 +84,6 @@ exports.signup_post = [
     .escape(),
 
   asyncHandler(async (req, res, next) => {
-    const duplicate = await User.findOne({ username: req.body.username });
-    if (duplicate !== null) {
-      res.render("signup", {
-        user: req.user,
-        errors: [{ msg: "Username already exists." }],
-      });
-    }
-    next();
-  }),
-
-  asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.render("signup", { user: req.user, errors: errors.array() });
@@ -96,14 +97,13 @@ exports.signup_post = [
         password: hashedPassword,
         roles: ["User"],
       });
-      await user.save();
-      res.redirect("/");
-    });
-  }),
 
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/",
+      await user.save();
+      passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect: "/signup",
+      })(req, res, next);
+    });
   }),
 ];
 

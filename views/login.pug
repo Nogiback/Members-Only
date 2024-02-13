@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  .dialog.border.border-3.rounded.border-dark.p-5.d-flex.flex-column.align-items-center.bg-primary.text-white
+  .dialog.rounded-3.p-5.d-flex.flex-column.align-items-center.bg-dark.text-white
     h2 Welcome to Nogi Club
     h5.mb-4 Sign In
     form.form-group.d-flex.flex-column.m-auto(action="/login" method="post")
@@ -11,7 +11,7 @@ block content
       label(for="password") Password
       input.form-control(type="password" name="password" required)
       br
-      button.btn.btn-dark(type="submit") Sign In
+      button.btn.btn-primary(type="submit") Sign In
       if errors
         hr
         each error in errors 

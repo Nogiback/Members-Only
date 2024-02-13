@@ -1,4 +1,39 @@
 extends layout
 
 block content
-
+  if currentUser
+    .profile.card.text-center.d-flex.h-75.w-50.bg-dark.text-white 
+      .card-header 
+        img.d-inline-block.align-text-top(src='/images/messages-square.svg' alt='logo' width='24' height='16') 
+        | #{title}
+      .card-body.d-flex.flex-column.align-items-center.justify-content-center.gap-2
+        h5.card-title Welcome #{user.username}!
+        p.card-text Current Roles:
+          br
+          br
+          each role in user.roles
+            span.badge.bg-primary.m-1.fs-6 #{role} 
+        form.form-group.d-flex.flex-column.mt-4(action="/profile/secretCode" method="post")
+          label(for="secretcode") Enter Secret Code
+          if user.roles.includes("Club Member") && user.roles.includes("Admin")
+            input.form-control(type="text" name="secretcode" disabled)
+            br
+            button.btn.btn-primary(type="submit" disabled) Submit
+          else 
+            input.form-control(type="text" name="secretcode" required)
+            br
+            button.btn.btn-primary(type="submit") Submit
+        .alerts.mt-3
+          if errors 
+            hr
+            each error in errors
+              .alert.alert-danger(role="alert")=error.msg
+          if success
+              .alert.alert-success(role="alert")=success.msg
+          if incorrectStatus
+            .alert.alert-danger(role="alert")=incorrectStatus.msg
+      .card-footer.text-muted.d-flex.align-items-center.justify-content-center.gap-2
+        form(action="/" method="get")
+          button.btn.btn-primary Homepage
+        form(action="/logout" method="post")
+          button.btn.btn-primary Logout 

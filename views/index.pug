@@ -5,21 +5,18 @@ block content
     if messages 
       .messages.list-group.w-100.gap-2.position-absolute
         each message in messages
-          .message.list-group-item.list-group-item-action.flex-column.align-items-start.border.border-primary.rounded-3.p-3
+          .message.list-group-item.list-group-item-action.flex-column.align-items-start.rounded-3.p-3.bg-dark.text-white
             .d-flex.w-100.justify-content-between
-              if user.roles.includes("Club Member")
-                small.mb-1.text-success #{message.user.username}
-                small.text-success #{message.formattedTimestamp}
-              else if user.roles.includes("Admin")
-                small.mb-1.text-danger #{message.user.username}
-                small.text-danger #{message.formattedTimestamp}
+              if user.roles.includes("Club Member") || user.roles.includes("Admin")
+                small.mb-1.text-primary #{message.user.username}
+                small.text-primary #{message.formattedTimestamp}
               else
                 small.mb-1 Anonymous
                 small Unknown
             hr.mt-1
             p.mb-1 #{message.message}
     else 
-      h2 There are no messages
+      h2 There are no messages.
 
     .message-input.d-flex.flex-column.w-100.position-absolute
       form.form-group.d-flex.gap-2(action="/newMessage" method="post")
@@ -27,7 +24,7 @@ block content
           button.btn.btn-dark(type="submit") Send
 
   else 
-    .dialog.border.border-3.rounded.border-dark.p-5.d-flex.flex-column.align-items-center.bg-primary.text-white
+    .dialog.rounded-3.p-5.d-flex.flex-column.align-items-center.bg-dark.text-white
       h2 Welcome to Nogi Club
       h5.mb-4 Sign In
       form.form-group.d-flex.flex-column.m-auto(action="/login" method="post")
@@ -37,7 +34,7 @@ block content
         label(for="password") Password
         input.form-control(type="password" name="password" required)
         br
-        button.btn.btn-dark(type="submit") Sign In
+        button.btn.btn-primary(type="submit") Sign In
       hr
       p Don't have an account? 
         a(href="/signup") Sign up here.

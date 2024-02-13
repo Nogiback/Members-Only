@@ -2,8 +2,8 @@ extends layout
 
 block content
   if currentUser
-    .profile.card.text-center.d-flex.h-75.w-50.bg-dark.text-white 
-      .card-header 
+    .profile.card.text-center.d-flex.bg-dark.text-white.w-75.h-75
+      .card-header.p-3 
         img.d-inline-block.align-text-top(src='/images/messages-square.svg' alt='logo' width='24' height='16') 
         | #{title}
       .card-body.d-flex.flex-column.align-items-center.justify-content-center.gap-2
@@ -32,7 +32,7 @@ block content
               .alert.alert-success(role="alert")=success.msg
           if incorrectStatus
             .alert.alert-danger(role="alert")=incorrectStatus.msg
-      .card-footer.text-muted.d-flex.align-items-center.justify-content-center.gap-2
+      .card-footer.text-muted.d-flex.align-items-center.justify-content-center.gap-2.p-3
         form(action="/" method="get")
           button.btn.btn-primary Homepage
         form(action="/logout" method="post")

@@ -10,7 +10,7 @@ NodeJS, Javascript, Express, Mongoose, MongoDB, Pug, Bootstrap, PassportJS
 
 ## Lessons Learned
 
-Coming soon...
+This project gave me more experience with NodeJS, Express, and Mongoose. I got to learn how to use PassportJS and use LocalStrategy for user authentication.
 
 ## Feedback
 

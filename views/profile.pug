@@ -2,24 +2,23 @@ extends layout
 
 block content
   if currentUser
-    .profile.card.text-center.d-flex.bg-dark.text-white.w-75.h-75
-      .card-header.p-3 
-        img.d-inline-block.align-text-top(src='/images/messages-square.svg' alt='logo' width='24' height='16') 
-        | #{title}
-      .card-body.d-flex.flex-column.align-items-center.justify-content-center.gap-2
-        h5.card-title Welcome #{user.username}!
-        p.card-text Current Roles:
+    .profile.card.text-center.d-flex.align-items-center.justify-content-center.bg-dark.text-white
+      .card-header.p-4.d-flex.align-items-center.justify-content-center 
+        img.d-inline-block.align-text-top(src='/images/messages-square.svg' alt='logo' width='36' height='28') 
+        h4.m-0 #{title}
+      .card-body.d-flex.flex-column.align-items-center.justify-content-center.gap-2.p-5
+        h4.card-title Welcome #{user.username}!
+        p.card-text.fs-6 
+          u Current Roles
           br
           br
           each role in user.roles
             span.badge.bg-primary.m-1.fs-6 #{role} 
-        form.form-group.d-flex.flex-column.mt-4(action="/profile/secretCode" method="post")
-          label(for="secretcode") Enter Secret Code
-          if user.roles.includes("Club Member") && user.roles.includes("Admin")
-            input.form-control(type="text" name="secretcode" disabled)
-            br
-            button.btn.btn-primary(type="submit" disabled) Submit
-          else 
+        if user.roles.includes("Club Member") && user.roles.includes("Admin")
+          .alert.alert-success.mt-4(role="alert") All Secret Codes Entered.
+        else
+          form.form-group.d-flex.flex-column.mt-4(action="/profile/secretCode" method="post") 
+            label(for="secretcode") Enter Secret Code
             input.form-control(type="text" name="secretcode" required)
             br
             button.btn.btn-primary(type="submit") Submit
@@ -32,7 +31,7 @@ block content
               .alert.alert-success(role="alert")=success.msg
           if incorrectStatus
             .alert.alert-danger(role="alert")=incorrectStatus.msg
-      .card-footer.text-muted.d-flex.align-items-center.justify-content-center.gap-2.p-3
+      .card-footer.text-muted.d-flex.align-items-center.justify-content-center.gap-2.p-4
         form(action="/" method="get")
           button.btn.btn-primary Homepage
         form(action="/logout" method="post")

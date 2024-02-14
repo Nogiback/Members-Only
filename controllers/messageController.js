@@ -32,5 +32,6 @@ exports.newMessage_post = [
 ];
 
 exports.deleteMessage_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT YET IMPLEMENTED: Delete message POST");
+  await Message.findByIdAndDelete(req.body.messageID);
+  res.redirect("/");
 });

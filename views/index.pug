@@ -6,13 +6,21 @@ block content
       .messages.list-group.w-100.gap-2.position-absolute
         each message in messages
           .message.list-group-item.list-group-item-action.flex-column.align-items-start.rounded-3.p-3.bg-dark.text-white
-            .d-flex.w-100.justify-content-between
+            .d-flex.w-100.justify-content-between.align-items-center
               if user.roles.includes("Club Member") || user.roles.includes("Admin")
-                small.mb-1.text-primary #{message.user.username}
-                small.text-primary #{message.formattedTimestamp}
+                small.text-primary #{message.user.username}
               else
-                small.mb-1 Anonymous
-                small Unknown
+                small Anonymous
+              .d-flex.gap-2.justify-content-between.align-items-center
+                if user.roles.includes("Club Member") || user.roles.includes("Admin")
+                  small.text-primary #{message.formattedTimestamp}
+                else
+                  small Unknown
+                if user.roles.includes("Admin")
+                  form(action="/deleteMessage" method="post")
+                    input(type="hidden" name="messageID" value=message._id)
+                    button.close(type="submit" aria-label="delete")
+                      small(aria-hidden="true") ❌               
             hr.mt-1
             p.mb-1 #{message.message}
     else 
@@ -24,9 +32,10 @@ block content
           button.btn.btn-dark(type="submit") Send
 
   else 
-    .dialog.rounded-3.p-5.d-flex.flex-column.align-items-center.bg-dark.text-white
+    .dialog.rounded-3.p-5.d-flex.flex-column.align-items-center.bg-dark.text-white.gap-2
+      img.d-inline-block.align-text-top.mb-2(src='/images/messages-square.svg' alt='logo' width='40' height='34') 
       h2 Welcome to Nogi Club
-      h5.mb-4 Sign In
+      h5.mb-3 Sign In
       form.form-group.d-flex.flex-column.m-auto(action="/login" method="post")
         label(for="username") Username
         input.form-control(type="text" name="username" required)

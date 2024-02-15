@@ -20,8 +20,12 @@ exports.login_post = [
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
+    const errorUser = new User({
+      username: req.body.username,
+      password: req.body.password,
+    });
     if (!errors.isEmpty()) {
-      res.render("login", { user: req.user, errors: errors.array() });
+      res.render("login", { user: errorUser, errors: errors.array() });
       return;
     }
     passport.authenticate("local", (err, user, info) => {
@@ -29,7 +33,7 @@ exports.login_post = [
         return next(err);
       }
       if (!user) {
-        res.render("login", { user: req.user, errorMessage: info.message });
+        res.render("login", { user: errorUser, errorMessage: info.message });
         return;
       }
       req.login(user, (err) => {
@@ -49,9 +53,15 @@ exports.signup_get = function (req, res) {
 exports.signup_post = [
   asyncHandler(async (req, res, next) => {
     const duplicate = await User.findOne({ username: req.body.username });
+    const errorUser = new User({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      username: req.body.username,
+      password: req.body.password,
+    });
     if (duplicate !== null) {
       res.render("signup", {
-        user: req.user,
+        user: errorUser,
         errors: [{ msg: "Username already exists." }],
       });
       return;
@@ -86,7 +96,13 @@ exports.signup_post = [
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.render("signup", { user: req.user, errors: errors.array() });
+      const errorUser = new User({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        username: req.body.username,
+        password: req.body.password,
+      });
+      res.render("signup", { user: errorUser, errors: errors.array() });
       return;
     }
     bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {

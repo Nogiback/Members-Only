@@ -9,15 +9,15 @@ block content
       .form-group.d-flex.gap-3.mb-3
         .d-flex.flex-column
           label(for="firstname") First Name
-          input.form-control(type="text" name="firstname" required)
+          input.form-control(type="text" name="firstname" required value=(user===undefined ? "" : user.firstname))
         .d-flex.flex-column
           label(for="lastname") Last Name
-          input.form-control(type="text" name="lastname" required)
+          input.form-control(type="text" name="lastname" required value=(user===undefined ? "" : user.lastname))
       label(for="username") Username
-      input.form-control(type="text" name="username" required)
+      input.form-control(type="text" name="username" required value=(user===undefined ? "" : user.username))
       br
       label(for="password") Password
-      input.form-control(type="password" name="password" required)
+      input.form-control(type="password" name="password" require value=(user===undefined ? "" : user.password))
       br
       label(for="confirmPassword") Confirm Password
       input.form-control(type="password" name="confirmPassword" required)

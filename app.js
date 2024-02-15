@@ -6,6 +6,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const LocalStrategy = require("passport-local").Strategy;
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
@@ -79,7 +80,14 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(
+  session({
+    secret: "cats",
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({ mongoUrl: mongoDB }),
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(logger("dev"));
